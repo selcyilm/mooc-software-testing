@@ -1,36 +1,64 @@
 package tudelft.roman;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RomanNumeralTest {
 
-
+    @BeforeEach
+    public  void initialize() {
+        System.out.println("This method called before each test!");
+    }
     @Test
-    public void singleNumber() {
+    void singleNumber() {
         RomanNumeral roman = new RomanNumeral();
-        int result = roman.convert("I");
-        Assertions.assertEquals(1, result);
+        int result = roman.convert("V");
+        Assertions.assertEquals(5, result);
     }
 
     @Test
-    public void numberWithManyDigits() {
+    void numberWithManyDigits() {
         RomanNumeral roman = new RomanNumeral();
         int result = roman.convert("VIII");
         Assertions.assertEquals(8, result);
+
+        result = roman.convert("XIII");
+        Assertions.assertEquals(13, result);
     }
 
     @Test
-    public void numberWithSubtractiveNotation() {
+    void numberWithSubstractionNotation() {
         RomanNumeral roman = new RomanNumeral();
-        int result = roman.convert("IV");
-        Assertions.assertEquals(4, result);
+        int result = roman.convert("IX");
+        Assertions.assertEquals(9, result);
     }
 
     @Test
-    public void numberWithAndWithoutSubtractiveNotation() {
+    void numberWithMoreThanOneTen() {
         RomanNumeral roman = new RomanNumeral();
-        int result = roman.convert("XLIV");
-        Assertions.assertEquals(44, result);
+        int result = roman.convert("XXXI");
+        Assertions.assertEquals(31, result);
+    }
+
+    @Test
+    void numberWithSubstractionAndWithoutSubstractionNotation (){
+        RomanNumeral roman = new RomanNumeral();
+        int result = roman.convert("XLI");
+        Assertions.assertEquals(41, result);
+    }
+
+    @Test
+    void numberWithFourDigit() {
+        RomanNumeral roman = new RomanNumeral();
+        int result = roman.convert("MDCCC");
+        Assertions.assertEquals(1800, result);
+    }
+
+    @Test
+    void numberWithBiggestValue() {
+        RomanNumeral roman = new RomanNumeral();
+        int result = roman.convert("MMMCMXCIX");
+        Assertions.assertEquals(3999, result);
     }
 }
