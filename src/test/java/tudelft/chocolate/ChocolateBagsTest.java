@@ -1,15 +1,23 @@
 package tudelft.chocolate;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class ChocolateBagsTest {
-    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    /*@ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
     @CsvSource({ "1,1,5,0", "1,1,6,1", "1,1,7,-1", "1,1,8,-1" })
     public void totalIsTooBig(int small, int big, int total, int expectedResult) {
         ChocolateBags bags = new ChocolateBags();
         int result = bags.calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }*/
+
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({"1,1,5,0", "1,5,6,1", "1,1,7,-1", "1,1,8,-1"})
+    public void totalIsTooBig(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBags().calculate(small, big, total);
         Assertions.assertEquals(expectedResult, result);
     }
 
@@ -34,5 +42,34 @@ public class ChocolateBagsTest {
     public void onlySmallBars(int small, int big, int total, int expectedResult) {
         int result = new ChocolateBags().calculate(small, big, total);
         Assertions.assertEquals(expectedResult, result);
+    }
+
+    //The ones i did
+    @Test
+    public void totalIsBigger() {
+        ChocolateBags cb = new ChocolateBags();
+        int result = cb.calculate(1, 1, 10);
+        Assertions.assertEquals(-1, result);
+    }
+
+    @Test
+    public void onlyBigBarsUsed() {
+        ChocolateBags cb = new ChocolateBags();
+        int res = cb.calculate(1, 3, 10);
+        Assertions.assertEquals(0, res);
+    }
+
+    @Test
+    public void bigAndSmallBarsTogether() {
+        ChocolateBags cb = new ChocolateBags();
+        int res = cb.calculate(2, 3, 17);
+        Assertions.assertEquals(2, res);
+    }
+
+    @Test
+    public void onlySmallBarsUsed() {
+        ChocolateBags cb = new ChocolateBags();
+        int res = cb.calculate(9, 0, 5);
+        Assertions.assertEquals(5, res);
     }
 }
